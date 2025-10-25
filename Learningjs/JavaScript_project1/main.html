@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>To Do List</title>
+    <link rel="stylesheet" href="style.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cedarville+Cursive&family=Comfortaa:wght@300..700&family=Imperial+Script&display=swap"
+      rel="stylesheet" />
+  </head>
+  <body>
+    <div id="header">
+      <a href="index.html" style="text-decoration: none">
+        <h1 style="font-family: comfortaa; color: black">OrbitDesk</h1>
+      </a>
+    </div>
+
+    <div id="add_events">
+      <h1 style="font-family: comfortaa">What do you want to achieve?</h1>
+      <input id="input_add_task" placeholder="Add a task..." />
+
+      <div id="container_for_options">
+        <div id="container_option1">
+          <input type="radio" id="Tasktoday" name="taskOption" />
+          <label for="Tasktoday">Today </label>
+        </div>
+        <div id="container_option2">
+          <input type="radio" id="Taskupcoming" name="taskOption" />
+          <label for="Taskupcoming">Upcoming </label>
+        </div>
+      </div>
+      <button id="add-task-button" onclick="add_task()">+ Add</button>
+    </div>
+
+    <h3
+      style="
+        text-align: left;
+        font-family: comfortaa, Geneva, Tahoma, sans-serif;
+        color: rgba(0, 0, 0, 0.756);
+      ">
+      TODAY
+    </h3>
+
+    <div id="tasks_for_today">
+      <!-- <div class="events-today">
+        <input type="checkbox" />
+        <h4>Study for Physics test</h4>
+      </div>
+
+      <div class="events-today">
+        <input type="checkbox" />
+        <h4>Do math homework, Calculus</h4>
+      </div>
+      <br /> -->
+    </div>
+
+    <h3
+      style="
+        text-align: left;
+        font-family: comfortaa, Geneva, Tahoma, sans-serif;
+        color: rgba(0, 0, 0, 0.756);
+      ">
+      UPCOMING
+    </h3>
+
+    <div id="task_upcoming">
+      <!-- <div class="events-upcoming">
+        <input type="checkbox" />
+        <h4>Take the trash out</h4>
+      </div>
+
+      <div class="events-upcoming">
+        <input type="checkbox" />
+        <h4>Clean your room</h4>
+      </div> -->
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>

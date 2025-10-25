@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>Orbit Desk — Tasks</title>
+
+    <!-- Modern, professional font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet" />
+
+    <style>
+      :root {
+        --bg-start: #eaf4ff; /* soft sky */
+        --bg-end: #ffffff;
+        --primary: #1b79ff; /* sky blue / azure */
+        --primary-2: #00b4ff; /* cyan accent */
+        --text: #0f172a; /* slate-900 */
+        --muted: #64748b; /* slate-500 */
+        --card: #ffffff;
+        --line: rgba(15, 23, 42, 0.08);
+        --shadow: 0 10px 30px rgba(15, 23, 42, 0.1);
+        --radius-lg: 16px;
+        --radius-sm: 12px;
+      }
+
+      /* Base reset */
+      * {
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        height: 100%;
+        margin: 0;
+      }
+
+      body {
+        min-height: 100svh; /* mobile-friendly viewport */
+        font-family: "Inter", system-ui, -apple-system, Segoe UI, Roboto, Arial,
+          sans-serif;
+        color: var(--text);
+        background: linear-gradient(180deg, var(--bg-start), var(--bg-end));
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+      }
+
+      /* App container (simulates a mobile app frame) */
+      .app {
+        position: relative;
+        margin: 0 auto;
+        width: 100%;
+        max-width: 480px;
+        min-height: 100svh;
+        padding: env(safe-area-inset-top) env(safe-area-inset-right)
+          env(safe-area-inset-bottom) env(safe-area-inset-left);
+        display: grid;
+        grid-template-rows: auto 1fr auto;
+        gap: 0;
+      }
+
+      /* Header */
+      .app-header {
+        position: sticky;
+        top: 0;
+        z-index: 10;
+        backdrop-filter: saturate(150%) blur(10px);
+        background: rgba(255, 255, 255, 0.7);
+        border-bottom: 1px solid var(--line);
+      }
+
+      .header-inner {
+        height: 64px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0 16px;
+      }
+
+      .brand {
+        font-weight: 700;
+        font-size: 20px;
+        letter-spacing: 0.2px;
+        background: linear-gradient(90deg, var(--primary), var(--primary-2));
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+      }
+
+      /* Content area */
+      .content {
+        overflow: auto;
+        padding: 16px 16px 24px;
+      }
+
+      /* Add task card */
+      .add-card {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        background: var(--card);
+        border: 1px solid var(--line);
+        border-radius: var(--radius-lg);
+        box-shadow: var(--shadow);
+        padding: 12px;
+        margin: 4px 0 16px;
+      }
+
+      .add-icon {
+        width: 36px;
+        height: 36px;
+        display: grid;
+        place-items: center;
+        border-radius: 10px;
+        background: linear-gradient(135deg, var(--primary), var(--primary-2));
+        color: #fff;
+        flex: 0 0 36px;
+        box-shadow: 0 6px 16px rgba(27, 121, 255, 0.35);
+      }
+
+      .input-mock {
+        flex: 1;
+        height: 44px;
+        display: flex;
+        align-items: center;
+        padding: 0 14px;
+        border-radius: 12px;
+        border: 1px solid var(--line);
+        color: var(--muted);
+        background: #f8fafc;
+        outline: none;
+      }
+
+      .input-mock::after {
+        content: "Add a task...";
+        font-size: 15px;
+      }
+
+      .quick-meta {
+        display: flex;
+        gap: 10px;
+        margin-left: 4px;
+      }
+
+      .chip {
+        padding: 8px 10px;
+        border-radius: 999px;
+        border: 1px solid var(--line);
+        color: var(--muted);
+        font-size: 12px;
+        background: #ffffff;
+      }
+
+      /* Section label */
+      .section-title {
+        font-size: 13px;
+        font-weight: 600;
+        color: var(--muted);
+        letter-spacing: 0.4px;
+        text-transform: uppercase;
+        margin: 14px 2px 8px;
+      }
+
+      /* Task list */
+      .task-list {
+        display: grid;
+        gap: 10px;
+        list-style: none;
+        padding: 0;
+        margin: 0 0 80px;
+      }
+
+      .task-card {
+        display: grid;
+        grid-template-columns: auto 1fr auto;
+        align-items: center;
+        gap: 12px;
+        background: var(--card);
+        border: 1px solid var(--line);
+        border-radius: var(--radius-lg);
+        box-shadow: var(--shadow);
+        padding: 12px;
+      }
+
+      .check {
+        width: 28px;
+        height: 28px;
+        display: grid;
+        place-items: center;
+        border-radius: 8px;
+        border: 1px solid var(--line);
+        background: #f8fafc;
+        color: var(--muted);
+        flex: 0 0 28px;
+      }
+
+      .task-main {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+        min-width: 0;
+      }
+
+      .task-title {
+        font-size: 15px;
+        font-weight: 600;
+        line-height: 1.2;
+        color: var(--text);
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      .task-meta {
+        font-size: 12px;
+        color: var(--muted);
+        display: flex;
+        gap: 10px;
+        align-items: center;
+      }
+
+      .dot {
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: var(--primary);
+        opacity: 0.6;
+      }
+
+      .task-actions {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+
+      .icon-btn {
+        width: 36px;
+        height: 36px;
+        display: grid;
+        place-items: center;
+        border-radius: 10px;
+        border: 1px solid var(--line);
+        background: #fff;
+        color: var(--muted);
+      }
+
+      /* Completed state */
+      .task-card.completed .task-title {
+        text-decoration: line-through;
+        color: #94a3b8; /* slate-400 */
+        font-weight: 500;
+      }
+      .task-card.completed .check {
+        background: linear-gradient(135deg, var(--primary), var(--primary-2));
+        color: #fff;
+        border-color: transparent;
+        box-shadow: 0 6px 16px rgba(27, 121, 255, 0.25);
+      }
+      .task-card.completed .task-meta .dot {
+        background: #10b981; /* green accent */
+        opacity: 0.7;
+      }
+
+      /* Bottom filter bar */
+      .bottom-bar {
+        position: sticky;
+        bottom: 0;
+        z-index: 10;
+        backdrop-filter: saturate(150%) blur(10px);
+        background: rgba(255, 255, 255, 0.85);
+        border-top: 1px solid var(--line);
+      }
+
+      .bar-inner {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        max-width: 480px;
+        margin: 0 auto;
+        gap: 8px;
+        padding: 10px 16px calc(10px + env(safe-area-inset-bottom));
+      }
+
+      .filter-btn {
+        height: 40px;
+        border-radius: 12px;
+        border: 1px solid var(--line);
+        background: #fff;
+        color: var(--muted);
+        font-weight: 600;
+        font-size: 14px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+      }
+
+      .filter-btn.active {
+        background: linear-gradient(135deg, var(--primary), var(--primary-2));
+        color: #fff;
+        border-color: transparent;
+        box-shadow: 0 10px 20px rgba(27, 121, 255, 0.25);
+      }
+
+      /* Micro-interactions (visual only) */
+      .icon-btn:active,
+      .filter-btn:active,
+      .add-icon:active {
+        transform: translateY(1px);
+      }
+
+      /* Small devices fine-tuning */
+      @media (max-width: 360px) {
+        .header-inner {
+          height: 56px;
+        }
+        .task-title {
+          font-size: 14px;
+        }
+        .input-mock {
+          height: 42px;
+        }
+        .filter-btn {
+          height: 38px;
+          font-size: 13px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="app">
+      <!-- Header -->
+      <header class="app-header">
+        <div class="header-inner">
+          <div class="brand">Orbit Desk</div>
+        </div>
+      </header>
+
+      <!-- Content -->
+      <main class="content" aria-label="Task content">
+        <!-- Add Task (visual only) -->
+        <section class="add-card" aria-label="Add task">
+          <div class="add-icon" aria-hidden="true">
+            <!-- Plus icon -->
+            <svg
+              width="18"
+              height="18"
+              viewBox="0 0 24 24"
+              fill="none"
+              aria-hidden="true">
+              <path
+                d="M12 5v14M5 12h14"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round" />
+            </svg>
+          </div>
+          <div
+            class="input-mock"
+            role="button"
+            aria-label="Add a task input mock"></div>
+          <div class="quick-meta">
+            <span class="chip">Today</span>
+            <span class="chip">High</span>
+          </div>
+        </section>
+
+        <!-- Sections -->
+        <div class="section-title">Today</div>
+        <ul class="task-list">
+          <li class="task-card">
+            <div class="check" aria-hidden="true">
+              <!-- Empty check -->
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                <circle
+                  cx="12"
+                  cy="12"
+                  r="8.5"
+                  stroke="currentColor"
+                  stroke-width="2" />
+              </svg>
+            </div>
+            <div class="task-main">
+              <div class="task-title">Plan Orbit Desk onboarding flow</div>
+              <div class="task-meta">
+                <span class="dot"></span>
+                <span>Due today</span>
+                <span>•</span>
+                <span>Priority: High</span>
+              </div>
+            </div>
+            <button class="icon-btn" aria-label="Open task actions">
+              <svg
+                width="18"
+                height="18"
+                viewBox="0 0 24 24"
+                fill="none"
+                aria-hidden="true">
+                <circle cx="5" cy="12" r="2" fill="currentColor" />
+                <circle cx="12" cy="12" r="2" fill="currentColor" />
+                <circle cx="19" cy="12" r="2" fill="currentColor" />
+              </svg>
+            </button>
+          </li>
+
+          <li class="task-card completed">
+            <div class="check" aria-hidden="true">
+              <!-- Checkmark -->
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                <path
+                  d="M20 7L9.5 17.5 4 12"
+                  stroke="currentColor"
+                  stroke-width="2.4"
+                  stroke-linecap="round"
+                  stroke-linejoin="round" />
+              </svg>
+            </div>
+            <div class="task-main">
+              <div class="task-title">Sketch mobile layout variants</div>
+              <div class="task-meta">
+                <span class="dot"></span>
+                <span>Completed</span>
+                <span>•</span>
+                <span>Low effort</span>
+              </div>
+            </div>
+            <button class="icon-btn" aria-label="Open task actions">
+              <svg
+                width="18"
+                height="18"
+                viewBox="0 0 24 24"
+                fill="none"
+                aria-hidden="true">
+                <circle cx="5" cy="12" r="2" fill="currentColor" />
+                <circle cx="12" cy="12" r="2" fill="currentColor" />
+                <circle cx="19" cy="12" r="2" fill="currentColor" />
+              </svg>
+            </button>
+          </li>
+
+          <li class="task-card">
+            <div class="check" aria-hidden="true">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                <circle
+                  cx="12"
+                  cy="12"
+                  r="8.5"
+                  stroke="currentColor"
+                  stroke-width="2" />
+              </svg>
+            </div>
+            <div class="task-main">
+              <div class="task-title">
+                Collect resources for “Learn JS” plan
+              </div>
+              <div class="task-meta">
+                <span class="dot"></span>
+                <span>Tomorrow</span>
+                <span>•</span>
+                <span>Priority: Medium</span>
+              </div>
+            </div>
+            <button class="icon-btn" aria-label="Open task actions">
+              <svg
+                width="18"
+                height="18"
+                viewBox="0 0 24 24"
+                fill="none"
+                aria-hidden="true">
+                <circle cx="5" cy="12" r="2" fill="currentColor" />
+                <circle cx="12" cy="12" r="2" fill="currentColor" />
+                <circle cx="19" cy="12" r="2" fill="currentColor" />
+              </svg>
+            </button>
+          </li>
+        </ul>
+
+        <div class="section-title">Upcoming</div>
+        <ul class="task-list">
+          <li class="task-card">
+            <div class="check" aria-hidden="true">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                <circle
+                  cx="12"
+                  cy="12"
+                  r="8.5"
+                  stroke="currentColor"
+                  stroke-width="2" />
+              </svg>
+            </div>
+            <div class="task-main">
+              <div class="task-title">Prototype AI “Suggest tasks” flow</div>
+              <div class="task-meta">
+                <span class="dot"></span>
+                <span>Fri</span>
+                <span>•</span>
+                <span>Priority: Low</span>
+              </div>
+            </div>
+            <button class="icon-btn" aria-label="Open task actions">
+              <svg
+                width="18"
+                height="18"
+                viewBox="0 0 24 24"
+                fill="none"
+                aria-hidden="true">
+                <circle cx="5" cy="12" r="2" fill="currentColor" />
+                <circle cx="12" cy="12" r="2" fill="currentColor" />
+                <circle cx="19" cy="12" r="2" fill="currentColor" />
+              </svg>
+            </button>
+          </li>
+        </ul>
+      </main>
+
+      <!-- Bottom filter bar -->
+      <nav class="bottom-bar" aria-label="Task filters">
+        <div class="bar-inner">
+          <button class="filter-btn active" aria-pressed="true">
+            <!-- List icon -->
+            <svg
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              aria-hidden="true">
+              <path
+                d="M4 6h16M4 12h16M4 18h16"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round" />
+            </svg>
+            All
+          </button>
+          <button class="filter-btn" aria-pressed="false">
+            <!-- Play icon -->
+            <svg
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              aria-hidden="true">
+              <path d="M8 5v14l10-7-10-7z" fill="currentColor" />
+            </svg>
+            Active
+          </button>
+          <button class="filter-btn" aria-pressed="false">
+            <!-- Check icon -->
+            <svg
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              aria-hidden="true">
+              <path
+                d="M20 7L9.5 17.5 4 12"
+                stroke="currentColor"
+                stroke-width="2.2"
+                stroke-linecap="round"
+                stroke-linejoin="round" />
+            </svg>
+            Done
+          </button>
+        </div>
+      </nav>
+    </div>
+  </body>
+</html>
+```

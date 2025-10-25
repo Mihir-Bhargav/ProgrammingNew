@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Learning JS</title>
+    <link rel="stylesheet" href="Css_for_JS.css" />
+  </head>
+  <body>
+    <div id="divpositioning">
+      <div id="div1">
+        <div>
+          <h1 id="h11">Login</h1>
+          <label> Username:</label>
+          <input
+            id="mytext"
+            style="
+              border-radius: 10px;
+              padding: 10px 20px;
+              font-family: cursive;
+            " />
+          <br />
+          <br />
+          <label> Password: </label>
+          <input
+            style="
+              border-radius: 10px;
+              padding: 10px 20px;
+              font-family: cursive;
+            " />
+          <br />
+          <br />
+          <button
+            id="mysubmit"
+            style="
+              background-color: black;
+              color: white;
+              font-family: cursive;
+              padding: 10px 50px;
+              border-radius: 10px;
+            ">
+            Submit
+          </button>
+        </div>
+      </div>
+    </div>
+    <p id="p1"></p>
+    <p id="p2"></p>
+    <p id="p3"></p>
+
+    <br /><br /><br /><br /><br />
+
+    <div id="divfordiv">
+      <div id="div5">
+        <div id="label"><label id="countlabel"> 0 </label></div>
+        <br />
+        <br />
+        <br />
+
+        <button class="but" id="button1">Increase</button>
+        <button class="but" id="button2">Reset</button>
+        <button class="but" id="button3">Decrease</button>
+      </div>
+    </div>
+
+    <br /><br /><br />
+
+    <center>
+      <button
+        id="btn4"
+        style="
+          background-color: black;
+          color: white;
+          font-family: cursive;
+          padding: 10px 50px;
+          border-radius: 10px;
+        ">
+        Roll the dice
+      </button>
+      <h1 id="displaydice"></h1>
+    </center>
+    <br /><br /><br />
+
+    <br />
+
+    <center>
+      <div id="meritsdiv">
+        <h1 id="yourmerits">Enter your merits</h1>
+        <input
+          id="mymerits"
+          style="
+            border-radius: 10px;
+            padding: 10px 20px;
+            font-family: cursive;
+          " />
+
+        <br />
+        <br />
+        <button
+          id="merits3"
+          style="
+            background-color: black;
+            color: white;
+            font-family: cursive;
+            padding: 10px 50px;
+            border-radius: 10px;
+          ">
+          Submit my score
+        </button>
+
+        <h1 id="h111"></h1>
+      </div>
+    </center>
+    <input type="radio" id="visa" name="card" />
+    <label for="visa"> Visa </label>
+    <br />
+    <input type="radio" id="mastercard" name="card" />
+    <label for="mastercard"> Mastercard </label>
+    <br />
+    <input type="radio" id="appay" name="card" />
+    <label for="appay"> Apple pay </label>
+    <br />
+    <br />
+    <button type="submit" id="btn_1">Submit</button>
+    <p id="subresult"></p>
+    <p id="payment_result"></p>
+    <h1 id="todayis"></h1>
+    <br /><br /><br />
+    <h1 id="email-result" style="font-size: 15px"></h1>
+
+    <center>
+      <div id="temp">
+        <h1 id="h1_temp1">Temperature converter</h1>
+        <input type="number" id="input_temp1" placeholder="Enter temperature" />
+        <br />
+        <br />
+        <input type="radio" id="celtofar" class="inputclass" name="temp" />
+        <label for="celtofar"> Celsius to Fahrenheit </label>
+        <br />
+        <input type="radio" id="fartocel" class="inputclass" name="temp" />
+        <label for="fartocel"> Fahrenheit to Celsius </label>
+        <br />
+        <button id="btn_temp">Convert</button>
+        <h1 id="result_temp"></h1>
+      </div>
+    </center>
+    <br />
+
+    <!-- <button onclick="startTimer()" style="padding: 10px 50px;">START</button>
+    <button onclick="clearTimer()" style="padding: 10px 50px;">END</button> -->
+
+    <!-- Clock project -->
+    <center>
+      <div id="Clock">
+        <span id="timer_style"> </span>
+      </div>
+    </center>
+
+    <br /><br /><br /><br /><br />
+
+    <center>
+      <div id="SWdiv">
+        <h1 id="h1_SW">Stop-Watch</h1>
+
+        <div id="displaySW">00:00:00:00</div>
+        <button class="btnSW" id="startSW" onclick="start()">Start</button>
+        <button class="btnSW" id="resetSW" onclick="reset()">Reset</button>
+        <button class="btnSW" id="stopSW" onclick="stop()">Stop</button>
+      </div>
+    </center>
+    <!-- Calculator project -->
+
+    <br /><br /><br /><br /><br />
+    <center>
+      <div id="calculator">
+        <input id="Calc_display" readonly />
+        <div id="keys">
+          <button
+            class="calc_btns"
+            onclick="appendToDisplay('+')"
+            id="operations">
+            +
+          </button>
+          <button onclick="appendToDisplay('7')" class="calc_btns">7</button>
+          <button onclick="appendToDisplay('8')" class="calc_btns">8</button>
+          <button onclick="appendToDisplay('9')" class="calc_btns">9</button>
+          <button
+            onclick="appendToDisplay('-')"
+            class="calc_btns"
+            id="operations">
+            -
+          </button>
+          <button onclick="appendToDisplay('4')" class="calc_btns">4</button>
+          <button onclick="appendToDisplay('5')" class="calc_btns">5</button>
+          <button onclick="appendToDisplay('6')" class="calc_btns">6</button>
+          <button
+            onclick="appendToDisplay('*')"
+            class="calc_btns"
+            id="operations">
+            x
+          </button>
+          <button onclick="appendToDisplay('1')" class="calc_btns">1</button>
+          <button onclick="appendToDisplay('2')" class="calc_btns">2</button>
+          <button onclick="appendToDisplay('3')" class="calc_btns">3</button>
+          <button
+            onclick="appendToDisplay('/')"
+            class="calc_btns"
+            id="operations">
+            /
+          </button>
+          <button onclick="calculate()" class="calc_btns">=</button>
+          <button onclick="appendToDisplay('.')" class="calc_btns">.</button>
+          <button onclick="appendToDisplay('0')" class="calc_btns">0</button>
+          <button id="clearbtn" onclick=" clear_display()">Clear</button>
+        </div>
+      </div>
+    </center>
+    <h1 id="element_selectors">Hello</h1>
+
+    <div class="apple">Apple</div>
+    <div class="apple">banana</div>
+    <div class="apple">orange</div>
+
+    <h4>Root vegetables</h4>
+    <ul>
+      <li>Carrot</li>
+      <li>beets</li>
+      <li>Potato</li>
+    </ul>
+
+    <h4>Other vegetables</h4>
+    <ul>
+      <li>Brocoli</li>
+      <li>tomato</li>
+      <li>onions</li>
+    </ul>
+
+    <div id="box1" class="Box">
+      <p>Box1</p>
+    </div>
+
+    <div id="box2" class="Box">
+      <p>Click me 😀</p>
+    </div>
+
+    <div id="box3" class="Box">
+      <p>Box3</p>
+    </div>
+
+    <h1 id="new"></h1>
+
+    <button id="hide">HIDE</button>
+    <img src="nice_ss.jpg" id="img-hide" />
+
+    <br><br><br><br>
+
+    <button class="myBtns">Button 1</button>
+    <button class="myBtns">Button 2</button>
+    <button class="myBtns">Button 3</button>
+<br> <br> <br> 
+    <button id="button_id"> Click me </button>
+
+    <br><br><br><br><br>
+    <center> 
+      <div id="entire_thing"> 
+<h1 style="font-family: 'Times New Roman', Times, serif, Geneva, Tahoma, sans-serif;"> Rock-Paper-Scissors ! </h1>
+<div id="choices"> 
+<button onclick="playGame('rock')" class="rps_btn"> 👊 </button>
+<button onclick="playGame('paper')"  class="rps_btn"> 🫱 </button>
+<button onclick="playGame('scissors')"  class="rps_btn"> ✂️ </button>
+</div>
+
+<div id="playerDisplay"> PLAYER  : </div>
+<div id="computerDisplay"> COMPUTER  : </div>
+<div id="resultDisplay">  </div>
+    </center>
+</div>
+
+<br><br><br>
+<div class="slider">
+  <div class="slides"> 
+<img class="slide" src="5fce3ba8f2aac5.25573646.jpeg"> 
+<img class="slide" src="b1e57bec09603d8793e2d9351ffb76a5.jpg"> 
+<img class="slide" src="hq720.jpg"> 
+</div>
+<button class="prev" onclick="prevSlide()"> < </button>
+<button class="next" onclick="nextSlide()"> > </button>
+</div>
+
+<center> 
+  <div id="pokemon_API">
+  <h1> Find your Pokemon ! </h1>
+<input type="text" id="pokemonName" placeholder="Enter Pokemon name"> 
+<button onclick="fetchData()" id="pokid"> Fetch Pokemon </button> 
+<img src="" alt="Pokemon Sprite" id="pokemonSprite" style="display: none;"> 
+</div>
+</center> 
+
+<br><br><br>
+<center> 
+<div id="final_div"> 
+  <h1>  Find the weather </h1>
+<form class="weatherForm">
+<input type="text" class="cityInput" placeholder="Enter city"> 
+<button type="submit" id="submit_weather"> Get weather </button>
+</form>
+<div id="container" style="display: none;"> 
+
+</div>
+</div>
+</div> 
+</center>
+<br> <br> 
+
+<center> 
+<div>
+  <h2> Guess the number 1-100</h2>
+<input type="number" id="number_game" style="border-radius: 10px; padding: 20px 20px; font-size: 30px;">
+<br>
+<button id="guess_btn" onclick="guessnum()">Guess </button>
+</div>
+</center>
+
+ <center> 
+      <div id="quote_generator" style="height: 500px; width: 400px; border: 2px black solid; margin-top: 20px; border-radius: 10px;"> 
+        <h1> Daily Wisdom </h1>
+<p> Generate a wise quote!</p>
+<button  id="generate_btn" onclick="generate_quote()"> Generate </button>
+<h1 id="quote_generate_here" style="font-family:cursive; font-weight: 70">  </h1>
+
+<h1 id="author_generate_here" style="font-family:cursive; font-weight: 70">  </h1>
+      </div>
+    </center>
+
+    <script src="Learning_JS.js"></script>
+  </body>
+</html>
+
+
